@@ -2,15 +2,15 @@ import { Popover } from "@base-ui/react/popover";
 
 import { Chip } from "@/components";
 
-import styles from "./styles.module.css";
 import type { Props } from "./types";
+import styles from "./styles.module.css";
 
 function ShowMoreButton({ items }: Props) {
   return (
     <Popover.Root>
       <Popover.Trigger className={styles.trigger}>...</Popover.Trigger>
       <Popover.Portal keepMounted>
-        <Popover.Positioner sideOffset={8}>
+        <Popover.Positioner align="end" sideOffset={8}>
           <Popover.Popup className={styles.popup}>
             <ul className={styles.items}>
               {items.map(({ id, text }) => (

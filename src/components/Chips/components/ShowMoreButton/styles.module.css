@@ -8,16 +8,18 @@
 }
 
 .popup {
+  max-inline-size: 350px;
   padding-block: 8px;
   padding-inline: 14px;
   border-radius: 6px;
   box-shadow: 0 0 10px rgb(89 89 89 / 50%);
+  background-color: #fff;
 }
 
 .items {
   display: flex;
-  justify-content: center;
-  column-gap: 8px;
+  flex-wrap: wrap;
+  gap: 4px 8px;
   margin: 0;
   padding: 0;
   list-style-type: none;
