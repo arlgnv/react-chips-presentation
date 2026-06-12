@@ -1,5 +1,5 @@
 import { BUTTON_WIDTH as SHOW_MORE_BUTTON_WIDTH } from "../components/ShowMoreButton";
-import { CHIPS_COLUMN_GAP } from "../constants";
+import { ITEMS_COLUMN_GAP } from "../constants";
 
 function calculateVisibleItemsNumber(
   parentWidth: number,
@@ -15,7 +15,7 @@ function calculateVisibleItemsNumber(
     const itemWidth = item.clientWidth;
     const canBeAdded = isFirst
       ? itemWidth < parentWidth
-      : occupiedWidth + CHIPS_COLUMN_GAP + itemWidth < parentWidth;
+      : occupiedWidth + ITEMS_COLUMN_GAP + itemWidth < parentWidth;
 
     if (!canBeAdded) {
       break;
@@ -24,7 +24,7 @@ function calculateVisibleItemsNumber(
     result++;
     occupiedWidth = isFirst
       ? occupiedWidth + itemWidth
-      : occupiedWidth + CHIPS_COLUMN_GAP + itemWidth;
+      : occupiedWidth + ITEMS_COLUMN_GAP + itemWidth;
     itemsWidths.push(itemWidth);
   }
 
@@ -36,7 +36,7 @@ function calculateVisibleItemsNumber(
 
   const showMoreButtonCanBeAdded =
     result === 0 ||
-    occupiedWidth + CHIPS_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth;
+    occupiedWidth + ITEMS_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth;
 
   if (showMoreButtonCanBeAdded) {
     return result;
@@ -48,12 +48,12 @@ function calculateVisibleItemsNumber(
     result--;
     occupiedWidth = isFirst
       ? occupiedWidth - itemsWidths[i]
-      : occupiedWidth - CHIPS_COLUMN_GAP - itemsWidths[i];
+      : occupiedWidth - ITEMS_COLUMN_GAP - itemsWidths[i];
     itemsWidths.pop();
 
     if (
       result === 0 ||
-      occupiedWidth + CHIPS_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth
+      occupiedWidth + ITEMS_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth
     ) {
       break;
     }

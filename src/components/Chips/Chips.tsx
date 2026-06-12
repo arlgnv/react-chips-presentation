@@ -5,7 +5,7 @@ import type { Props } from "./types";
 import styles from "./styles.module.css";
 import { ShowMoreButton } from "./components";
 import { calculateVisibleItemsNumber } from "./utilities";
-import { CHIPS_COLUMN_GAP } from "./constants";
+import { ITEMS_COLUMN_GAP } from "./constants";
 
 function Chips({ items }: Props) {
   const itemsRef = useRef<HTMLUListElement>(null);
@@ -53,7 +53,7 @@ function Chips({ items }: Props) {
   return (
     <ul
       className={styles.items}
-      style={{ columnGap: CHIPS_COLUMN_GAP }}
+      style={{ columnGap: ITEMS_COLUMN_GAP }}
       ref={itemsRef}
     >
       {visibleItems.map(({ id, text }) => (
