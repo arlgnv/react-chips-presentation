@@ -1,13 +1,16 @@
+.no-items-message {
+  margin: 0;
+  text-align: center;
+}
+
 .items {
   display: flex;
   justify-content: center;
-  column-gap: 8px;
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.no-items-message {
-  margin: 0;
-  text-align: center;
+.item {
+  flex-shrink: 0;
 }

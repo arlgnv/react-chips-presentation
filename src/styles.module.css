@@ -1,13 +1,12 @@
 .container {
   max-width: 1440px;
-  padding-inline: 32px;
-  padding-block: 64px;
-  margin-inline: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 32px 64px;
 }
 
 .title {
-  margin: 0;
-  margin-block-end: 64px;
+  margin: 0 0 64px;
   text-align: center;
 }
 
