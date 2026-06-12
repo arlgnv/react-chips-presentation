@@ -3,9 +3,14 @@
   text-align: center;
 }
 
-.items {
+.container {
   display: flex;
   justify-content: center;
+}
+
+.items {
+  flex-shrink: 0;
+  display: flex;
   margin: 0;
   padding: 0;
   list-style-type: none;

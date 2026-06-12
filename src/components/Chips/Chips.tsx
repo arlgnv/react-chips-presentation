@@ -5,20 +5,13 @@ import type { Props } from "./types";
 import styles from "./styles.module.css";
 import { ShowMoreButton } from "./components";
 import { calculateVisibleItemsNumber } from "./utilities";
-import { ITEMS_COLUMN_GAP } from "./constants";
+import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
 
 function Chips({ items }: Props) {
   const itemsRef = useRef<HTMLUListElement>(null);
-  const [visibleItemsNumber, setVisibleItemsNumber] = useState<
-    number | undefined
-  >();
-  const visibleItemsNumberIsKnown = typeof visibleItemsNumber === "number";
-  const visibleItems = visibleItemsNumberIsKnown
-    ? items.slice(0, visibleItemsNumber)
-    : items;
-  const hiddenItems = visibleItemsNumberIsKnown
-    ? items.slice(visibleItemsNumber)
-    : [];
+  const [visibleItemsNumber, setVisibleItemsNumber] = useState(items.length);
+  const visibleItems = items.slice(0, visibleItemsNumber);
+  const hiddenItems = items.slice(visibleItemsNumber);
 
   useLayoutEffect(() => {
     const itemsElement = itemsRef.current;
@@ -51,22 +44,23 @@ function Chips({ items }: Props) {
   }
 
   return (
-    <ul
-      className={styles.items}
-      style={{ columnGap: ITEMS_COLUMN_GAP }}
-      ref={itemsRef}
+    <div
+      className={styles.container}
+      style={{ columnGap: CONTAINER_COLUMN_GAP }}
     >
-      {visibleItems.map(({ id, text }) => (
-        <li key={id} className={styles.item}>
-          <Chip>{text}</Chip>
-        </li>
-      ))}
-      {hiddenItems.length > 0 && (
-        <li className={styles.item}>
-          <ShowMoreButton items={hiddenItems} />
-        </li>
-      )}
-    </ul>
+      <ul
+        className={styles.items}
+        style={{ columnGap: ITEMS_COLUMN_GAP }}
+        ref={itemsRef}
+      >
+        {visibleItems.map(({ id, text }) => (
+          <li key={id} className={styles.item}>
+            <Chip>{text}</Chip>
+          </li>
+        ))}
+      </ul>
+      {hiddenItems.length > 0 && <ShowMoreButton items={hiddenItems} />}
+    </div>
   );
 }
 

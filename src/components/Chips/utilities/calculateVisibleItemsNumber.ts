@@ -1,5 +1,5 @@
 import { BUTTON_WIDTH as SHOW_MORE_BUTTON_WIDTH } from "../components/ShowMoreButton";
-import { ITEMS_COLUMN_GAP } from "../constants";
+import { ITEMS_COLUMN_GAP, CONTAINER_COLUMN_GAP } from "../constants";
 
 function calculateVisibleItemsNumber(
   parentWidth: number,
@@ -36,7 +36,7 @@ function calculateVisibleItemsNumber(
 
   const showMoreButtonCanBeAdded =
     result === 0 ||
-    occupiedWidth + ITEMS_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth;
+    occupiedWidth + CONTAINER_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth;
 
   if (showMoreButtonCanBeAdded) {
     return result;
@@ -53,7 +53,8 @@ function calculateVisibleItemsNumber(
 
     if (
       result === 0 ||
-      occupiedWidth + ITEMS_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth
+      occupiedWidth + CONTAINER_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH <
+        parentWidth
     ) {
       break;
     }
