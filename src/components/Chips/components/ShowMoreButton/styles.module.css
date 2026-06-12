@@ -8,6 +8,10 @@
 }
 
 .popup {
+  padding-block: 8px;
+  padding-inline: 14px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgb(89 89 89 / 50%);
 }
 
 .items {
