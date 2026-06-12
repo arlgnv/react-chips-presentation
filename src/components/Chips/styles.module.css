@@ -4,8 +4,21 @@
 }
 
 .container {
+  position: relative;
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
+}
+
+.measure-box {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  flex-shrink: 0;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
 .items {

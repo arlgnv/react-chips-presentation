@@ -1,26 +1,26 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 
 import Chip from "../Chip";
-import type { Props } from "./types";
-import styles from "./styles.module.css";
 import { ShowMoreButton } from "./components";
+import type { Props } from "./types";
 import { calculateVisibleItemsNumber } from "./utilities";
 import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
+import styles from "./styles.module.css";
 
 function Chips({ items }: Props) {
-  const itemsRef = useRef<HTMLUListElement>(null);
-  const [visibleItemsNumber, setVisibleItemsNumber] = useState(items.length);
+  const measureBoxRef = useRef<HTMLUListElement>(null);
+  const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
   const visibleItems = items.slice(0, visibleItemsNumber);
   const hiddenItems = items.slice(visibleItemsNumber);
 
   useLayoutEffect(() => {
-    const itemsElement = itemsRef.current;
+    const measureBoxElement = measureBoxRef.current;
 
-    if (!itemsElement) {
+    if (!measureBoxElement) {
       return;
     }
 
-    const parentElement = itemsElement.parentElement;
+    const parentElement = measureBoxElement.parentElement;
 
     if (!parentElement) {
       return;
@@ -33,8 +33,12 @@ function Chips({ items }: Props) {
       parseFloat(parentStyles.paddingRight);
 
     setVisibleItemsNumber(
-      itemsElement.scrollWidth > parentWidth
-        ? calculateVisibleItemsNumber(parentWidth, itemsElement, items.length)
+      measureBoxElement.scrollWidth > parentWidth
+        ? calculateVisibleItemsNumber(
+            parentWidth,
+            measureBoxElement,
+            items.length,
+          )
         : items.length,
     );
   }, [items]);
@@ -49,10 +53,17 @@ function Chips({ items }: Props) {
       style={{ columnGap: CONTAINER_COLUMN_GAP }}
     >
       <ul
-        className={styles.items}
+        className={styles["measure-box"]}
         style={{ columnGap: ITEMS_COLUMN_GAP }}
-        ref={itemsRef}
+        ref={measureBoxRef}
       >
+        {items.map(({ id, text }) => (
+          <li key={id} className={styles.item}>
+            <Chip>{text}</Chip>
+          </li>
+        ))}
+      </ul>
+      <ul className={styles.items} style={{ columnGap: ITEMS_COLUMN_GAP }}>
         {visibleItems.map(({ id, text }) => (
           <li key={id} className={styles.item}>
             <Chip>{text}</Chip>
