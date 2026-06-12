@@ -1,0 +1,20 @@
+.trigger {
+  padding-block: 12px;
+  padding-inline: 16px;
+  border-radius: 9999px;
+  color: #595959;
+  background-color: #d8d8d8;
+  border: 0;
+}
+
+.popup {
+}
+
+.items {
+  display: flex;
+  justify-content: center;
+  column-gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}

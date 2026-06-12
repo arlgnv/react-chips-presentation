@@ -5,5 +5,10 @@
 }
 
 body {
+  position: relative;
   margin: 0;
+}
+
+#root {
+  isolation: isolate;
 }
