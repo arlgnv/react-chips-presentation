@@ -26,7 +26,7 @@ function ShowMoreButton({ items }: Props) {
             </Popover.Description>
             <ul className={styles.items}>
               {items.map(({ id, text }) => (
-                <li key={id}>
+                <li key={id} className={styles.item}>
                   <Chip>{text}</Chip>
                 </li>
               ))}
