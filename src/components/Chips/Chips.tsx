@@ -8,35 +8,32 @@ import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
 import styles from "./styles.module.css";
 
 function Chips({ items }: Props) {
-  const measureBoxRef = useRef<HTMLUListElement>(null);
+  const allItemsRef = useRef<HTMLUListElement>(null);
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
   const visibleItems = items.slice(0, visibleItemsNumber);
   const hiddenItems = items.slice(visibleItemsNumber);
 
   useLayoutEffect(() => {
-    const measureBoxElement = measureBoxRef.current;
+    const allItemsElement = allItemsRef.current;
 
-    if (!measureBoxElement) {
+    if (!allItemsElement) {
       return;
     }
 
-    const parentElement = measureBoxElement.parentElement;
+    const parentElement = allItemsElement.parentElement;
 
     if (!parentElement) {
       return;
     }
 
-    const parentStyles = getComputedStyle(parentElement);
-    const parentWidth =
-      parentElement.clientWidth -
-      parseFloat(parentStyles.paddingLeft) -
-      parseFloat(parentStyles.paddingRight);
+    const parentWidth = parentElement.clientWidth;
+    const allItemsElementWidth = allItemsElement.scrollWidth;
 
     setVisibleItemsNumber(
-      measureBoxElement.scrollWidth > parentWidth
+      allItemsElementWidth > parentWidth
         ? calculateVisibleItemsNumber(
             parentWidth,
-            measureBoxElement,
+            allItemsElement,
             items.length,
           )
         : items.length,
@@ -53,9 +50,9 @@ function Chips({ items }: Props) {
       style={{ columnGap: CONTAINER_COLUMN_GAP }}
     >
       <ul
-        className={styles["measure-box"]}
+        className={`${styles.items} ${styles["all-items"]}`}
         style={{ columnGap: ITEMS_COLUMN_GAP }}
-        ref={measureBoxRef}
+        ref={allItemsRef}
       >
         {items.map(({ id, text }) => (
           <li key={id} className={styles.item}>

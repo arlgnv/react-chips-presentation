@@ -3,14 +3,14 @@ import { ITEMS_COLUMN_GAP, CONTAINER_COLUMN_GAP } from "../constants";
 
 function calculateVisibleItemsNumber(
   parentWidth: number,
-  measureBoxElement: HTMLUListElement,
+  allItemsElement: HTMLUListElement,
   itemsNumber: number,
 ) {
   let result = 0;
   let occupiedWidth = 0;
   const itemsWidths: number[] = [];
 
-  for (const item of measureBoxElement.children) {
+  for (const item of allItemsElement.children) {
     const isFirst = result === 0;
     const itemWidth = item.clientWidth;
     const canBeAdded = isFirst
