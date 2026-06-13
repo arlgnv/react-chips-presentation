@@ -27,16 +27,16 @@ function useVisibleItemsNumber(
       for (const entry of entries) {
         const containerWidth = entry.borderBoxSize[0].inlineSize;
         const allItemsElementWidth = allItemsElement.scrollWidth;
-
-        setVisibleItemsNumber(
+        const newVisibleItemsNumber =
           allItemsElementWidth > containerWidth
             ? calculateVisibleItemsNumber(
                 containerWidth,
                 allItemsElement,
                 items.length,
               )
-            : items.length,
-        );
+            : items.length;
+
+        setVisibleItemsNumber(newVisibleItemsNumber);
       }
     });
 
