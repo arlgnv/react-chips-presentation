@@ -23,16 +23,14 @@ function useVisibleItemsNumber(
       return;
     }
 
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const containerWidth = entry.borderBoxSize[0].inlineSize;
-        const newVisibleItemsNumber = calculateVisibleItemsNumber(
-          containerWidth,
-          allItemsElement,
-          items.length,
-        );
-        setVisibleItemsNumber(newVisibleItemsNumber);
-      }
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      const containerWidth = entry.borderBoxSize[0].inlineSize;
+      const newVisibleItemsNumber = calculateVisibleItemsNumber(
+        containerWidth,
+        allItemsElement,
+        items.length,
+      );
+      setVisibleItemsNumber(newVisibleItemsNumber);
     });
 
     resizeObserver.observe(containerElement);
