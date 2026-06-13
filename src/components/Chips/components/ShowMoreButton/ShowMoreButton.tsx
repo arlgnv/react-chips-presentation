@@ -1,20 +1,12 @@
 import { Popover } from "@base-ui/react/popover";
 
-import Chip, { type Props as ChipProps } from "@/components/Chip";
+import { Chip } from "@/components";
 
 import type { Props } from "./types";
 import { BUTTON_WIDTH } from "./constants";
 import styles from "./styles.module.css";
 
 function ShowMoreButton({ items, onChipToggle }: Props) {
-  function createChipPressedChangeHandler(
-    itemId: number,
-  ): NonNullable<ChipProps["onPressedChange"]> {
-    return () => {
-      onChipToggle(itemId);
-    };
-  }
-
   return (
     <Popover.Root>
       <Popover.Trigger
@@ -38,7 +30,9 @@ function ShowMoreButton({ items, onChipToggle }: Props) {
                 <li key={id} className={styles.item}>
                   <Chip
                     pressed={pressed}
-                    onPressedChange={createChipPressedChangeHandler(id)}
+                    onPressedChange={() => {
+                      onChipToggle(id);
+                    }}
                   >
                     {text}
                   </Chip>

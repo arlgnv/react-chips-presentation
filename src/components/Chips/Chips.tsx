@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import Chip, { type Props as ChipProps } from "@/components/Chip";
+import { Chip } from "@/components";
 
 import { ShowMoreButton } from "./components";
 import { useVisibleItemsNumber } from "./hooks";
@@ -18,14 +18,6 @@ function Chips({ items, onChipToggle }: Props) {
   );
   const visibleItems = items.slice(0, visibleItemsNumber);
   const hiddenItems = items.slice(visibleItemsNumber);
-
-  function createChipPressedChangeHandler(
-    itemId: number,
-  ): NonNullable<ChipProps["onPressedChange"]> {
-    return () => {
-      onChipToggle(itemId);
-    };
-  }
 
   return (
     <div
@@ -57,7 +49,9 @@ function Chips({ items, onChipToggle }: Props) {
                 <li key={id} className={styles.item}>
                   <Chip
                     pressed={pressed}
-                    onPressedChange={createChipPressedChangeHandler(id)}
+                    onPressedChange={() => {
+                      onChipToggle(id);
+                    }}
                   >
                     {text}
                   </Chip>
