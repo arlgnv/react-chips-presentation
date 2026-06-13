@@ -4,30 +4,43 @@ import Chips, { type Item } from "./components/Chips";
 import styles from "./styles.module.css";
 
 function App() {
-  const [chips, setChips] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
 
-  function handleChipAdd() {
-    if (chips.length === 0) {
-      setChips([{ id: 1, text: "Chip 1" }]);
+  function handleItemAdd() {
+    if (items.length === 0) {
+      setItems([{ id: 1, text: "Chip 1", pressed: false }]);
     }
 
-    const lastChip = chips.at(-1);
+    const lastItem = items.at(-1);
 
-    if (!lastChip) {
+    if (!lastItem) {
       return;
     }
 
-    const newChipId = lastChip.id + 1;
+    const newItemId = lastItem.id + 1;
 
-    setChips([...chips, { id: newChipId, text: `Chip ${newChipId}` }]);
+    setItems([
+      ...items,
+      { id: newItemId, text: `Chip ${newItemId}`, pressed: false },
+    ]);
   }
 
-  function handleChipRemove() {
-    setChips(chips.slice(0, -1));
+  function handleItemRemove() {
+    setItems(items.slice(0, -1));
   }
 
-  function handleChipsClear() {
-    setChips([]);
+  function handleItemsClear() {
+    setItems([]);
+  }
+
+  function handleItemToggle(id: number, pressed: boolean) {
+    const itemToToggle = items.find((item) => item.id === id);
+
+    if (!itemToToggle) {
+      return;
+    }
+
+    // todo: write logic for changing `items` local state
   }
 
   return (
@@ -35,22 +48,22 @@ function App() {
       <h1 className={styles.title}>Test assignment for Сириус.Курсы</h1>
       <ul className={styles.buttons}>
         <li>
-          <button type="button" onClick={handleChipAdd}>
+          <button type="button" onClick={handleItemAdd}>
             Add chip
           </button>
         </li>
         <li>
-          <button type="button" onClick={handleChipRemove}>
+          <button type="button" onClick={handleItemRemove}>
             Remove chip
           </button>
         </li>
         <li>
-          <button type="button" onClick={handleChipsClear}>
+          <button type="button" onClick={handleItemsClear}>
             Clear chips
           </button>
         </li>
       </ul>
-      <Chips items={chips} />
+      <Chips items={items} onItemToggle={handleItemToggle} />
     </main>
   );
 }

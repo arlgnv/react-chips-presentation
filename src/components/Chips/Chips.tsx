@@ -1,13 +1,13 @@
 import { useRef, useState, useLayoutEffect } from "react";
 
-import Chip from "../Chip";
+import Chip, { type Props as ChipProps } from "@/components/Chip";
 import { ShowMoreButton } from "./components";
 import type { Props } from "./types";
 import { calculateVisibleItemsNumber } from "./utilities";
 import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
 import styles from "./styles.module.css";
 
-function Chips({ items }: Props) {
+function Chips({ items, onItemToggle }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const allItemsRef = useRef<HTMLUListElement>(null);
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
@@ -51,6 +51,14 @@ function Chips({ items }: Props) {
     };
   }, [items]);
 
+  function createChipPressedChangeHandler(
+    itemId: number,
+  ): NonNullable<ChipProps["onPressedChange"]> {
+    return (pressed) => {
+      onItemToggle(itemId, pressed);
+    };
+  }
+
   return (
     <div
       className={styles.container}
@@ -77,14 +85,21 @@ function Chips({ items }: Props) {
               className={styles.items}
               style={{ columnGap: ITEMS_COLUMN_GAP }}
             >
-              {visibleItems.map(({ id, text }) => (
+              {visibleItems.map(({ id, text, pressed }) => (
                 <li key={id} className={styles.item}>
-                  <Chip>{text}</Chip>
+                  <Chip
+                    pressed={pressed}
+                    onPressedChange={createChipPressedChangeHandler(id)}
+                  >
+                    {text}
+                  </Chip>
                 </li>
               ))}
             </ul>
           )}
-          {hiddenItems.length > 0 && <ShowMoreButton items={hiddenItems} />}
+          {hiddenItems.length > 0 && (
+            <ShowMoreButton items={hiddenItems} onItemToggle={onItemToggle} />
+          )}
         </>
       )}
     </div>

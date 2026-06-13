@@ -3,11 +3,14 @@ import { useState } from "react";
 import type { Props } from "./types";
 import styles from "./styles.module.css";
 
-function Chip({ children }: Props) {
-  const [pressed, setPressed] = useState(false);
+function Chip({ children, pressed: pressedProp, onPressedChange }: Props) {
+  const [pressed, setPressed] = useState(pressedProp ?? false);
 
   function handleClick() {
-    setPressed(!pressed);
+    const newPressed = !pressed;
+
+    setPressed(newPressed);
+    onPressedChange?.(newPressed);
   }
 
   return (

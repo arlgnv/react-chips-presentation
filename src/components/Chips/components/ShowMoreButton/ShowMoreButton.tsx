@@ -1,12 +1,20 @@
 import { Popover } from "@base-ui/react/popover";
 
-import { Chip } from "@/components";
+import Chip, { type Props as ChipProps } from "@/components/Chip";
 
 import type { Props } from "./types";
 import { BUTTON_WIDTH } from "./constants";
 import styles from "./styles.module.css";
 
-function ShowMoreButton({ items }: Props) {
+function ShowMoreButton({ items, onItemToggle }: Props) {
+  function createChipPressedChangeHandler(
+    itemId: number,
+  ): NonNullable<ChipProps["onPressedChange"]> {
+    return (pressed) => {
+      onItemToggle(itemId, pressed);
+    };
+  }
+
   return (
     <Popover.Root>
       <Popover.Trigger
@@ -16,7 +24,7 @@ function ShowMoreButton({ items }: Props) {
       >
         …
       </Popover.Trigger>
-      <Popover.Portal keepMounted>
+      <Popover.Portal>
         <Popover.Positioner align="end" sideOffset={8}>
           <Popover.Popup className={styles.popup}>
             <Popover.Title className="visually-hidden">
@@ -26,9 +34,14 @@ function ShowMoreButton({ items }: Props) {
               Here are the chips that didn't fit to the main container
             </Popover.Description>
             <ul className={styles.items}>
-              {items.map(({ id, text }) => (
+              {items.map(({ id, text, pressed }) => (
                 <li key={id} className={styles.item}>
-                  <Chip>{text}</Chip>
+                  <Chip
+                    pressed={pressed}
+                    onPressedChange={createChipPressedChangeHandler(id)}
+                  >
+                    {text}
+                  </Chip>
                 </li>
               ))}
             </ul>
