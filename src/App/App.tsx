@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import Chips, { type Item } from "./components/Chips";
+import Chips, { type Item } from "@/components/Chips";
+
 import styles from "./styles.module.css";
 
 function App() {

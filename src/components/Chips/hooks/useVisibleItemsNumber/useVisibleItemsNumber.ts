@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from "react";
 
-import type { Item } from "../types";
+import type { Item } from "../../types";
 import { calculateVisibleItemsNumber } from "./utilities";
 
 function useVisibleItemsNumber(

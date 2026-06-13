@@ -1,5 +1,5 @@
-import { BUTTON_WIDTH as SHOW_MORE_BUTTON_WIDTH } from "../../components/ShowMoreButton";
-import { ITEMS_COLUMN_GAP, CONTAINER_COLUMN_GAP } from "../../constants";
+import { BUTTON_WIDTH as SHOW_MORE_BUTTON_WIDTH } from "../../../components/ShowMoreButton";
+import { ITEMS_COLUMN_GAP, CONTAINER_COLUMN_GAP } from "../../../constants";
 
 function calculateVisibleItemsNumber(
   containerWidth: number,
