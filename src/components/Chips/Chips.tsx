@@ -72,13 +72,18 @@ function Chips({ items }: Props) {
               </li>
             ))}
           </ul>
-          <ul className={styles.items} style={{ columnGap: ITEMS_COLUMN_GAP }}>
-            {visibleItems.map(({ id, text }) => (
-              <li key={id} className={styles.item}>
-                <Chip>{text}</Chip>
-              </li>
-            ))}
-          </ul>
+          {visibleItems.length > 0 && (
+            <ul
+              className={styles.items}
+              style={{ columnGap: ITEMS_COLUMN_GAP }}
+            >
+              {visibleItems.map(({ id, text }) => (
+                <li key={id} className={styles.item}>
+                  <Chip>{text}</Chip>
+                </li>
+              ))}
+            </ul>
+          )}
           {hiddenItems.length > 0 && <ShowMoreButton items={hiddenItems} />}
         </>
       )}
