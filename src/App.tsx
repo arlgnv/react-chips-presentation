@@ -33,14 +33,16 @@ function App() {
     setItems([]);
   }
 
-  function handleItemToggle(id: number, pressed: boolean) {
-    const itemToToggle = items.find((item) => item.id === id);
+  function handleItemToggle(id: number) {
+    const itemIndex = items.findIndex((item) => item.id === id);
 
-    if (!itemToToggle) {
+    if (itemIndex === -1) {
       return;
     }
 
-    // todo: write logic for changing `items` local state
+    const item = items[itemIndex];
+
+    setItems(items.with(itemIndex, { ...item, pressed: !item.pressed }));
   }
 
   return (

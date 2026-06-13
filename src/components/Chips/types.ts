@@ -6,7 +6,7 @@ interface Item {
 
 interface Props {
   items: Item[];
-  onItemToggle: (id: number, pressed: boolean) => void;
+  onItemToggle: (id: number) => void;
 }
 
 export type { Props, Item };

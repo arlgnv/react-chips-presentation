@@ -10,8 +10,8 @@ function ShowMoreButton({ items, onItemToggle }: Props) {
   function createChipPressedChangeHandler(
     itemId: number,
   ): NonNullable<ChipProps["onPressedChange"]> {
-    return (pressed) => {
-      onItemToggle(itemId, pressed);
+    return () => {
+      onItemToggle(itemId);
     };
   }
 
