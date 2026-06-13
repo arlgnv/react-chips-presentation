@@ -6,65 +6,25 @@ function calculateVisibleItemsNumber(
   allItemsElement: HTMLUListElement,
   itemsNumber: number,
 ) {
-  const allItemsElementWidth = allItemsElement.scrollWidth;
-
-  if (allItemsElementWidth <= containerWidth) {
+  if (allItemsElement.scrollWidth <= containerWidth) {
     return itemsNumber;
   }
 
-  let result = 0;
+  const availableWidth =
+    containerWidth - CONTAINER_COLUMN_GAP - SHOW_MORE_BUTTON_WIDTH;
   let occupiedWidth = 0;
-  const itemsWidths: number[] = [];
+  let result = 0;
 
   for (const item of allItemsElement.children) {
-    const isFirst = result === 0;
     const itemWidth = item.clientWidth;
-    const canBeAdded = isFirst
-      ? itemWidth < containerWidth
-      : occupiedWidth + ITEMS_COLUMN_GAP + itemWidth < containerWidth;
 
-    if (!canBeAdded) {
+    occupiedWidth += result === 0 ? itemWidth : ITEMS_COLUMN_GAP + itemWidth;
+
+    if (occupiedWidth > availableWidth) {
       break;
     }
 
     result++;
-    occupiedWidth = isFirst
-      ? occupiedWidth + itemWidth
-      : occupiedWidth + ITEMS_COLUMN_GAP + itemWidth;
-    itemsWidths.push(itemWidth);
-  }
-
-  const showMoreShouldAdded = result < itemsNumber;
-
-  if (!showMoreShouldAdded) {
-    return result;
-  }
-
-  const showMoreButtonCanBeAdded =
-    result === 0 ||
-    occupiedWidth + CONTAINER_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH <
-      containerWidth;
-
-  if (showMoreButtonCanBeAdded) {
-    return result;
-  }
-
-  for (let i = itemsWidths.length - 1; i >= 0; i--) {
-    const isFirst = i === 0;
-
-    result--;
-    occupiedWidth = isFirst
-      ? occupiedWidth - itemsWidths[i]
-      : occupiedWidth - ITEMS_COLUMN_GAP - itemsWidths[i];
-    itemsWidths.pop();
-
-    if (
-      result === 0 ||
-      occupiedWidth + CONTAINER_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH <
-        containerWidth
-    ) {
-      break;
-    }
   }
 
   return result;
