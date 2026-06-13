@@ -13,21 +13,22 @@ function calculateVisibleItemsNumber(
   const availableWidth =
     containerWidth - CONTAINER_COLUMN_GAP - SHOW_MORE_BUTTON_WIDTH;
   let occupiedWidth = 0;
-  let result = 0;
+  let visibleItemsNumber = 0;
 
   for (const item of allItemsElement.children) {
     const itemWidth = item.clientWidth;
 
-    occupiedWidth += result === 0 ? itemWidth : ITEMS_COLUMN_GAP + itemWidth;
+    occupiedWidth +=
+      visibleItemsNumber === 0 ? itemWidth : ITEMS_COLUMN_GAP + itemWidth;
 
     if (occupiedWidth > availableWidth) {
       break;
     }
 
-    result++;
+    visibleItemsNumber++;
   }
 
-  return result;
+  return visibleItemsNumber;
 }
 
 export default calculateVisibleItemsNumber;
