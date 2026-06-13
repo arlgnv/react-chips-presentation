@@ -14,7 +14,7 @@ function ShowMoreButton({ items }: Props) {
         style={{ width: BUTTON_WIDTH }}
         aria-label="Show more chips"
       >
-        ...
+        …
       </Popover.Trigger>
       <Popover.Portal keepMounted>
         <Popover.Positioner align="end" sideOffset={8}>
