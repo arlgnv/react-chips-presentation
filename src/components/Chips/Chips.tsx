@@ -1,55 +1,23 @@
-import { useRef, useState, useLayoutEffect } from "react";
+import { useRef } from "react";
 
 import Chip, { type Props as ChipProps } from "@/components/Chip";
+
 import { ShowMoreButton } from "./components";
+import { useVisibleItemsNumber } from "./hooks";
 import type { Props } from "./types";
-import { calculateVisibleItemsNumber } from "./utilities";
 import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
 import styles from "./styles.module.css";
 
 function Chips({ items, onChipToggle }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const allItemsRef = useRef<HTMLUListElement>(null);
-  const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
+  const visibleItemsNumber = useVisibleItemsNumber(
+    containerRef,
+    allItemsRef,
+    items,
+  );
   const visibleItems = items.slice(0, visibleItemsNumber);
   const hiddenItems = items.slice(visibleItemsNumber);
-
-  useLayoutEffect(() => {
-    const containerElement = containerRef.current;
-
-    if (!containerElement) {
-      return;
-    }
-
-    const allItemsElement = allItemsRef.current;
-
-    if (!allItemsElement) {
-      return;
-    }
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const containerWidth = entry.borderBoxSize[0].inlineSize;
-        const allItemsElementWidth = allItemsElement.scrollWidth;
-
-        setVisibleItemsNumber(
-          allItemsElementWidth > containerWidth
-            ? calculateVisibleItemsNumber(
-                containerWidth,
-                allItemsElement,
-                items.length,
-              )
-            : items.length,
-        );
-      }
-    });
-
-    resizeObserver.observe(containerElement);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [items]);
 
   function createChipPressedChangeHandler(
     itemId: number,
