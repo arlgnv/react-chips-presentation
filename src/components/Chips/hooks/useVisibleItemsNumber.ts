@@ -26,16 +26,11 @@ function useVisibleItemsNumber(
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const containerWidth = entry.borderBoxSize[0].inlineSize;
-        const allItemsElementWidth = allItemsElement.scrollWidth;
-        const newVisibleItemsNumber =
-          allItemsElementWidth > containerWidth
-            ? calculateVisibleItemsNumber(
-                containerWidth,
-                allItemsElement,
-                items.length,
-              )
-            : items.length;
-
+        const newVisibleItemsNumber = calculateVisibleItemsNumber(
+          containerWidth,
+          allItemsElement,
+          items.length,
+        );
         setVisibleItemsNumber(newVisibleItemsNumber);
       }
     });

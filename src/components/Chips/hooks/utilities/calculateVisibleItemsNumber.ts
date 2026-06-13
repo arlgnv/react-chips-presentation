@@ -6,6 +6,12 @@ function calculateVisibleItemsNumber(
   allItemsElement: HTMLUListElement,
   itemsNumber: number,
 ) {
+  const allItemsElementWidth = allItemsElement.scrollWidth;
+
+  if (allItemsElementWidth <= containerWidth) {
+    return itemsNumber;
+  }
+
   let result = 0;
   let occupiedWidth = 0;
   const itemsWidths: number[] = [];
