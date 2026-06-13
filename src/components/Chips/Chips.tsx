@@ -8,66 +8,80 @@ import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
 import styles from "./styles.module.css";
 
 function Chips({ items }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const allItemsRef = useRef<HTMLUListElement>(null);
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
   const visibleItems = items.slice(0, visibleItemsNumber);
   const hiddenItems = items.slice(visibleItemsNumber);
 
   useLayoutEffect(() => {
+    const containerElement = containerRef.current;
+
+    if (!containerElement) {
+      return;
+    }
+
     const allItemsElement = allItemsRef.current;
 
     if (!allItemsElement) {
       return;
     }
 
-    const parentElement = allItemsElement.parentElement;
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const containerWidth = entry.borderBoxSize[0].inlineSize;
+        const allItemsElementWidth = allItemsElement.scrollWidth;
 
-    if (!parentElement) {
-      return;
-    }
+        setVisibleItemsNumber(
+          allItemsElementWidth > containerWidth
+            ? calculateVisibleItemsNumber(
+                containerWidth,
+                allItemsElement,
+                items.length,
+              )
+            : items.length,
+        );
+      }
+    });
 
-    const parentWidth = parentElement.clientWidth;
-    const allItemsElementWidth = allItemsElement.scrollWidth;
+    resizeObserver.observe(containerElement);
 
-    setVisibleItemsNumber(
-      allItemsElementWidth > parentWidth
-        ? calculateVisibleItemsNumber(
-            parentWidth,
-            allItemsElement,
-            items.length,
-          )
-        : items.length,
-    );
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, [items]);
-
-  if (items.length === 0) {
-    return <p className={styles["no-items-message"]}>No chips</p>;
-  }
 
   return (
     <div
       className={styles.container}
       style={{ columnGap: CONTAINER_COLUMN_GAP }}
+      ref={containerRef}
     >
-      <ul
-        className={`${styles.items} ${styles["all-items"]}`}
-        style={{ columnGap: ITEMS_COLUMN_GAP }}
-        ref={allItemsRef}
-      >
-        {items.map(({ id, text }) => (
-          <li key={id} className={styles.item}>
-            <Chip>{text}</Chip>
-          </li>
-        ))}
-      </ul>
-      <ul className={styles.items} style={{ columnGap: ITEMS_COLUMN_GAP }}>
-        {visibleItems.map(({ id, text }) => (
-          <li key={id} className={styles.item}>
-            <Chip>{text}</Chip>
-          </li>
-        ))}
-      </ul>
-      {hiddenItems.length > 0 && <ShowMoreButton items={hiddenItems} />}
+      {items.length === 0 ? (
+        <p className={styles["no-items-message"]}>No chips</p>
+      ) : (
+        <>
+          <ul
+            className={`${styles.items} ${styles["all-items"]}`}
+            style={{ columnGap: ITEMS_COLUMN_GAP }}
+            ref={allItemsRef}
+          >
+            {items.map(({ id, text }) => (
+              <li key={id} className={styles.item}>
+                <Chip>{text}</Chip>
+              </li>
+            ))}
+          </ul>
+          <ul className={styles.items} style={{ columnGap: ITEMS_COLUMN_GAP }}>
+            {visibleItems.map(({ id, text }) => (
+              <li key={id} className={styles.item}>
+                <Chip>{text}</Chip>
+              </li>
+            ))}
+          </ul>
+          {hiddenItems.length > 0 && <ShowMoreButton items={hiddenItems} />}
+        </>
+      )}
     </div>
   );
 }

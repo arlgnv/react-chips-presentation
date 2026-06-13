@@ -1,8 +1,3 @@
-.no-items-message {
-  margin: 0;
-  text-align: center;
-}
-
 .container {
   position: relative;
   display: flex;
@@ -10,9 +5,9 @@
   overflow-x: hidden;
 }
 
-.all-items {
-  position: absolute;
-  visibility: hidden;
+.no-items-message {
+  margin: 0;
+  text-align: center;
 }
 
 .items {
@@ -21,6 +16,11 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+
+.all-items {
+  position: absolute;
+  visibility: hidden;
 }
 
 .item {

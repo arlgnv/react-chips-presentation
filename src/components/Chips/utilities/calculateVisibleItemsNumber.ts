@@ -2,7 +2,7 @@ import { BUTTON_WIDTH as SHOW_MORE_BUTTON_WIDTH } from "../components/ShowMoreBu
 import { ITEMS_COLUMN_GAP, CONTAINER_COLUMN_GAP } from "../constants";
 
 function calculateVisibleItemsNumber(
-  parentWidth: number,
+  containerWidth: number,
   allItemsElement: HTMLUListElement,
   itemsNumber: number,
 ) {
@@ -14,8 +14,8 @@ function calculateVisibleItemsNumber(
     const isFirst = result === 0;
     const itemWidth = item.clientWidth;
     const canBeAdded = isFirst
-      ? itemWidth < parentWidth
-      : occupiedWidth + ITEMS_COLUMN_GAP + itemWidth < parentWidth;
+      ? itemWidth < containerWidth
+      : occupiedWidth + ITEMS_COLUMN_GAP + itemWidth < containerWidth;
 
     if (!canBeAdded) {
       break;
@@ -36,7 +36,8 @@ function calculateVisibleItemsNumber(
 
   const showMoreButtonCanBeAdded =
     result === 0 ||
-    occupiedWidth + CONTAINER_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH < parentWidth;
+    occupiedWidth + CONTAINER_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH <
+      containerWidth;
 
   if (showMoreButtonCanBeAdded) {
     return result;
@@ -54,7 +55,7 @@ function calculateVisibleItemsNumber(
     if (
       result === 0 ||
       occupiedWidth + CONTAINER_COLUMN_GAP + SHOW_MORE_BUTTON_WIDTH <
-        parentWidth
+        containerWidth
     ) {
       break;
     }
