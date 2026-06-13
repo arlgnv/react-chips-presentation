@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useLayoutEffect } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 
 import Chip from "../Chip";
 import { ShowMoreButton } from "./components";
