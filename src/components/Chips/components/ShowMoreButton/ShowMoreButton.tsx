@@ -12,6 +12,7 @@ function ShowMoreButton({ items }: Props) {
       <Popover.Trigger
         className={styles.trigger}
         style={{ width: BUTTON_WIDTH }}
+        aria-label="Show more chips"
       >
         ...
       </Popover.Trigger>
