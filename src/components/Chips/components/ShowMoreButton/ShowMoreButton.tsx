@@ -18,6 +18,12 @@ function ShowMoreButton({ items }: Props) {
       <Popover.Portal keepMounted>
         <Popover.Positioner align="end" sideOffset={8}>
           <Popover.Popup className={styles.popup}>
+            <Popover.Title className="visually-hidden">
+              Rest chips
+            </Popover.Title>
+            <Popover.Description className="visually-hidden">
+              Here are the chips that didn't fit to the main container
+            </Popover.Description>
             <ul className={styles.items}>
               {items.map(({ id, text }) => (
                 <li key={id}>
