@@ -2,7 +2,7 @@ import type { Props as ChipProps } from "../../types";
 
 import type { Item } from "../../types";
 
-interface Props extends Pick<ChipProps, "onItemToggle"> {
+interface Props extends Pick<ChipProps, "onChipToggle"> {
   items: Item[];
 }
 

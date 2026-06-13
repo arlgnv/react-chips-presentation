@@ -1,12 +1,12 @@
 interface Item {
   id: number;
   text: string;
-  pressed: boolean;
+  pressed?: boolean;
 }
 
 interface Props {
   items: Item[];
-  onItemToggle: (id: number) => void;
+  onChipToggle: (id: number) => void;
 }
 
 export type { Props, Item };

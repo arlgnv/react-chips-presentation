@@ -6,12 +6,12 @@ import type { Props } from "./types";
 import { BUTTON_WIDTH } from "./constants";
 import styles from "./styles.module.css";
 
-function ShowMoreButton({ items, onItemToggle }: Props) {
+function ShowMoreButton({ items, onChipToggle }: Props) {
   function createChipPressedChangeHandler(
     itemId: number,
   ): NonNullable<ChipProps["onPressedChange"]> {
     return () => {
-      onItemToggle(itemId);
+      onChipToggle(itemId);
     };
   }
 

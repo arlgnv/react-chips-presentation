@@ -4,45 +4,45 @@ import Chips, { type Item } from "./components/Chips";
 import styles from "./styles.module.css";
 
 function App() {
-  const [items, setItems] = useState<Item[]>([]);
+  const [chips, setChips] = useState<Item[]>([]);
 
-  function handleItemAdd() {
-    if (items.length === 0) {
-      setItems([{ id: 1, text: "Chip 1", pressed: false }]);
+  function handleChipAdd() {
+    if (chips.length === 0) {
+      setChips([{ id: 1, text: "Chip 1", pressed: false }]);
     }
 
-    const lastItem = items.at(-1);
+    const lastChip = chips.at(-1);
 
-    if (!lastItem) {
+    if (!lastChip) {
       return;
     }
 
-    const newItemId = lastItem.id + 1;
+    const newChipId = lastChip.id + 1;
 
-    setItems([
-      ...items,
-      { id: newItemId, text: `Chip ${newItemId}`, pressed: false },
+    setChips([
+      ...chips,
+      { id: newChipId, text: `Chip ${newChipId}`, pressed: false },
     ]);
   }
 
-  function handleItemRemove() {
-    setItems(items.slice(0, -1));
+  function handleChipRemove() {
+    setChips(chips.slice(0, -1));
   }
 
-  function handleItemsClear() {
-    setItems([]);
+  function handleChipsClear() {
+    setChips([]);
   }
 
-  function handleItemToggle(id: number) {
-    const itemIndex = items.findIndex((item) => item.id === id);
+  function handleChipToggle(id: number) {
+    const chipIndex = chips.findIndex((chip) => chip.id === id);
 
-    if (itemIndex === -1) {
+    if (chipIndex === -1) {
       return;
     }
 
-    const item = items[itemIndex];
+    const chip = chips[chipIndex];
 
-    setItems(items.with(itemIndex, { ...item, pressed: !item.pressed }));
+    setChips(chips.with(chipIndex, { ...chip, pressed: !chip.pressed }));
   }
 
   return (
@@ -50,22 +50,22 @@ function App() {
       <h1 className={styles.title}>Test assignment for Сириус.Курсы</h1>
       <ul className={styles.buttons}>
         <li>
-          <button type="button" onClick={handleItemAdd}>
+          <button type="button" onClick={handleChipAdd}>
             Add chip
           </button>
         </li>
         <li>
-          <button type="button" onClick={handleItemRemove}>
+          <button type="button" onClick={handleChipRemove}>
             Remove chip
           </button>
         </li>
         <li>
-          <button type="button" onClick={handleItemsClear}>
+          <button type="button" onClick={handleChipsClear}>
             Clear chips
           </button>
         </li>
       </ul>
-      <Chips items={items} onItemToggle={handleItemToggle} />
+      <Chips items={chips} onChipToggle={handleChipToggle} />
     </main>
   );
 }

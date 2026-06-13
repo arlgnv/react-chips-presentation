@@ -7,7 +7,7 @@ import { calculateVisibleItemsNumber } from "./utilities";
 import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
 import styles from "./styles.module.css";
 
-function Chips({ items, onItemToggle }: Props) {
+function Chips({ items, onChipToggle }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const allItemsRef = useRef<HTMLUListElement>(null);
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
@@ -55,7 +55,7 @@ function Chips({ items, onItemToggle }: Props) {
     itemId: number,
   ): NonNullable<ChipProps["onPressedChange"]> {
     return () => {
-      onItemToggle(itemId);
+      onChipToggle(itemId);
     };
   }
 
@@ -98,7 +98,7 @@ function Chips({ items, onItemToggle }: Props) {
             </ul>
           )}
           {hiddenItems.length > 0 && (
-            <ShowMoreButton items={hiddenItems} onItemToggle={onItemToggle} />
+            <ShowMoreButton items={hiddenItems} onChipToggle={onChipToggle} />
           )}
         </>
       )}
