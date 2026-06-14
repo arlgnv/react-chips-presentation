@@ -48,7 +48,7 @@ function App() {
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>Test assignment for Сириус.Курсы</h1>
+      <h1 className={styles.title}>Presentation of React-Chips</h1>
       <ul className={styles.buttons}>
         <li>
           <button type="button" onClick={handleChipAdd}>
