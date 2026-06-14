@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import { Chip } from "@/components";
 
-import { ShowMoreButton } from "./components";
+import { NoItemsMessage, ShowMoreButton } from "./components";
 import { useVisibleItemsNumber } from "./hooks";
 import type { Props } from "./types";
 import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
@@ -26,7 +26,7 @@ function Chips({ items, onChipToggle }: Props) {
       ref={containerRef}
     >
       {items.length === 0 ? (
-        <p className={styles["no-items-message"]}>No chips</p>
+        <NoItemsMessage />
       ) : (
         <>
           <ul
