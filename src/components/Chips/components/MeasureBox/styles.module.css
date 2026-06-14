@@ -1,0 +1,10 @@
+.container {
+  flex-shrink: 0;
+  position: absolute;
+  display: flex;
+  visibility: hidden;
+}
+
+.chipWrapper {
+  flex-shrink: 0;
+}

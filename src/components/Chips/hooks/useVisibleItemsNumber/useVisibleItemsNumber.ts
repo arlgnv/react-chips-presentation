@@ -5,7 +5,7 @@ import { calculateVisibleItemsNumber } from "./utilities";
 
 function useVisibleItemsNumber(
   containerRef: React.RefObject<HTMLDivElement | null>,
-  allItemsRef: React.RefObject<HTMLUListElement | null>,
+  measureBoxRef: React.RefObject<HTMLDivElement | null>,
   items: Item[],
 ) {
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
@@ -17,9 +17,9 @@ function useVisibleItemsNumber(
       return;
     }
 
-    const allItemsElement = allItemsRef.current;
+    const measureBoxElement = measureBoxRef.current;
 
-    if (!allItemsElement) {
+    if (!measureBoxElement) {
       return;
     }
 
@@ -27,7 +27,7 @@ function useVisibleItemsNumber(
       const containerWidth = entry.borderBoxSize[0].inlineSize;
       const newVisibleItemsNumber = calculateVisibleItemsNumber(
         containerWidth,
-        allItemsElement,
+        measureBoxElement,
         items.length,
       );
       setVisibleItemsNumber(newVisibleItemsNumber);
@@ -38,7 +38,7 @@ function useVisibleItemsNumber(
     return () => {
       resizeObserver.disconnect();
     };
-  }, [containerRef, allItemsRef, items]);
+  }, [containerRef, measureBoxRef, items]);
 
   return visibleItemsNumber;
 }

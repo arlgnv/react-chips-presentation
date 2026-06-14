@@ -1,9 +1,5 @@
-import type { Props as ChipProps } from "../../types";
+import type { Props as ChipsProps } from "../../types";
 
-import type { Item } from "../../types";
-
-interface Props extends Pick<ChipProps, "onChipToggle"> {
-  items: Item[];
-}
+type Props = Pick<ChipsProps, "items" | "onChipToggle">;
 
 export type { Props };

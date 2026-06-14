@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import { Chip } from "@/components";
 
-import { NoItemsMessage, ShowMoreButton } from "./components";
+import { NoItemsMessage, MeasureBox, ShowMoreButton } from "./components";
 import { useVisibleItemsNumber } from "./hooks";
 import type { Props } from "./types";
 import { CONTAINER_COLUMN_GAP, ITEMS_COLUMN_GAP } from "./constants";
@@ -10,10 +10,10 @@ import styles from "./styles.module.css";
 
 function Chips({ items, onChipToggle }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const allItemsRef = useRef<HTMLUListElement>(null);
+  const measureBoxRef = useRef<HTMLDivElement>(null);
   const visibleItemsNumber = useVisibleItemsNumber(
     containerRef,
-    allItemsRef,
+    measureBoxRef,
     items,
   );
   const visibleItems = items.slice(0, visibleItemsNumber);
@@ -21,25 +21,15 @@ function Chips({ items, onChipToggle }: Props) {
 
   return (
     <div
+      ref={containerRef}
       className={styles.container}
       style={{ columnGap: CONTAINER_COLUMN_GAP }}
-      ref={containerRef}
     >
       {items.length === 0 ? (
         <NoItemsMessage />
       ) : (
         <>
-          <ul
-            className={`${styles.items} ${styles["all-items"]}`}
-            style={{ columnGap: ITEMS_COLUMN_GAP }}
-            ref={allItemsRef}
-          >
-            {items.map(({ id, text }) => (
-              <li key={id} className={styles.item}>
-                <Chip>{text}</Chip>
-              </li>
-            ))}
-          </ul>
+          <MeasureBox ref={measureBoxRef} items={items} />
           {visibleItems.length > 0 && (
             <ul
               className={styles.items}

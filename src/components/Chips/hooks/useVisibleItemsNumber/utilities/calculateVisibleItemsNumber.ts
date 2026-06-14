@@ -3,10 +3,10 @@ import { ITEMS_COLUMN_GAP, CONTAINER_COLUMN_GAP } from "../../../constants";
 
 function calculateVisibleItemsNumber(
   containerWidth: number,
-  allItemsElement: HTMLUListElement,
+  measureBoxElement: HTMLDivElement,
   itemsNumber: number,
 ) {
-  if (allItemsElement.scrollWidth <= containerWidth) {
+  if (measureBoxElement.scrollWidth <= containerWidth) {
     return itemsNumber;
   }
 
@@ -15,11 +15,11 @@ function calculateVisibleItemsNumber(
   let occupiedWidth = 0;
   let visibleItemsNumber = 0;
 
-  for (const item of allItemsElement.children) {
-    const itemWidth = item.clientWidth;
+  for (const child of measureBoxElement.children) {
+    const childWidth = child.clientWidth;
 
     occupiedWidth +=
-      visibleItemsNumber === 0 ? itemWidth : ITEMS_COLUMN_GAP + itemWidth;
+      visibleItemsNumber === 0 ? childWidth : ITEMS_COLUMN_GAP + childWidth;
 
     if (occupiedWidth > availableWidth) {
       break;
