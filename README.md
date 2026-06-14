@@ -8,7 +8,7 @@ Features include:
 - Automatic adjustment to screen width
 - Popover for overflowed chips
 - Rich accessibility
-- Possibility of using one chip independently (via Chip component)
+- Possibility of using one chip independently (via `Chip` component)
 
 ## Development
 
