@@ -23,7 +23,7 @@ function MoreChipsPopover({ handle, items, onChipToggle }: Props) {
                   <Chip
                     pressed={pressed}
                     onPressedChange={() => {
-                      onChipToggle(id);
+                      onChipToggle?.(id);
                     }}
                   >
                     {text}

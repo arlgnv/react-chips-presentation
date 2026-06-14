@@ -40,7 +40,7 @@ function Chips({ items, onChipToggle }: Props) {
                   <Chip
                     pressed={pressed}
                     onPressedChange={() => {
-                      onChipToggle(id);
+                      onChipToggle?.(id);
                     }}
                   >
                     {text}
