@@ -10,6 +10,8 @@ function App() {
   function handleChipAdd() {
     if (chips.length === 0) {
       setChips([{ id: 1, text: "Chip 1", pressed: false }]);
+
+      return;
     }
 
     const lastChip = chips.at(-1);
