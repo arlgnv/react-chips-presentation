@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect, useCallback } from "react";
 
 import type { Item } from "../../types";
 import { calculateVisibleItemsNumber } from "./utilities";
@@ -10,6 +10,22 @@ function useVisibleItemsNumber(
 ) {
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
 
+  const updateVisibleItemsNumber = useCallback((containerWidth: number) => {
+    const measureBoxElement = measureBoxRef.current;
+
+    if (!measureBoxElement) {
+      return;
+    }
+
+    const newVisibleItemsNumber = calculateVisibleItemsNumber(
+      containerWidth,
+      measureBoxElement,
+      items.length,
+    );
+
+    setVisibleItemsNumber(newVisibleItemsNumber);
+  }, []);
+
   useLayoutEffect(() => {
     const containerElement = containerRef.current;
 
@@ -17,20 +33,20 @@ function useVisibleItemsNumber(
       return;
     }
 
-    const measureBoxElement = measureBoxRef.current;
+    updateVisibleItemsNumber(containerElement.offsetWidth);
+  }, []);
 
-    if (!measureBoxElement) {
+  useEffect(() => {
+    const containerElement = containerRef.current;
+
+    if (!containerElement) {
       return;
     }
 
     const resizeObserver = new ResizeObserver(([entry]) => {
       const containerWidth = entry.borderBoxSize[0].inlineSize;
-      const newVisibleItemsNumber = calculateVisibleItemsNumber(
-        containerWidth,
-        measureBoxElement,
-        items.length,
-      );
-      setVisibleItemsNumber(newVisibleItemsNumber);
+
+      updateVisibleItemsNumber(containerWidth);
     });
 
     resizeObserver.observe(containerElement);
@@ -38,7 +54,7 @@ function useVisibleItemsNumber(
     return () => {
       resizeObserver.disconnect();
     };
-  }, [items]);
+  }, [updateVisibleItemsNumber]);
 
   return visibleItemsNumber;
 }
