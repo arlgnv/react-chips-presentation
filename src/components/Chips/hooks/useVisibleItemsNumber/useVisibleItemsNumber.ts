@@ -33,7 +33,13 @@ function useVisibleItemsNumber(
       return;
     }
 
-    updateVisibleItemsNumber(containerElement.offsetWidth);
+    const containerStyles = getComputedStyle(containerElement);
+    const containerWidth =
+      containerElement.clientWidth -
+      parseFloat(containerStyles.paddingLeft) -
+      parseFloat(containerStyles.paddingRight);
+
+    updateVisibleItemsNumber(containerWidth);
   }, []);
 
   useEffect(() => {
@@ -44,7 +50,7 @@ function useVisibleItemsNumber(
     }
 
     const resizeObserver = new ResizeObserver(([entry]) => {
-      const containerWidth = entry.borderBoxSize[0].inlineSize;
+      const containerWidth = entry.contentBoxSize[0].inlineSize;
 
       updateVisibleItemsNumber(containerWidth);
     });
