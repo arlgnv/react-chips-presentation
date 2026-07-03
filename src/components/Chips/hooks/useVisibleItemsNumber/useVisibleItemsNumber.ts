@@ -38,7 +38,7 @@ function useVisibleItemsNumber(
     return () => {
       resizeObserver.disconnect();
     };
-  }, [containerRef, measureBoxRef, items]);
+  }, [items]);
 
   return visibleItemsNumber;
 }
