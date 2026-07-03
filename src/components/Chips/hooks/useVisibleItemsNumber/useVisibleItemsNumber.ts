@@ -52,7 +52,7 @@ function useVisibleItemsNumber(
     resizeObserver.observe(containerElement);
 
     return () => {
-      resizeObserver.disconnect();
+      resizeObserver.unobserve(containerElement);
     };
   }, [updateVisibleItemsNumber]);
 
