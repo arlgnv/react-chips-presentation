@@ -11,4 +11,5 @@ export default defineConfig({
     },
   },
   plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
+  base: "/react-chips-presentation/",
 });
