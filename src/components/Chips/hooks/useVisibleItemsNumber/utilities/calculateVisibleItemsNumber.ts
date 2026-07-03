@@ -15,11 +15,13 @@ function calculateVisibleItemsNumber(
   let occupiedWidth = 0;
   let visibleItemsNumber = 0;
 
-  for (const child of measureBoxElement.children) {
-    const childWidth = child.clientWidth;
+  const chipWrappers = measureBoxElement.querySelectorAll("div");
+
+  for (const item of chipWrappers) {
+    const width = item.offsetWidth;
 
     occupiedWidth +=
-      visibleItemsNumber === 0 ? childWidth : ITEMS_COLUMN_GAP + childWidth;
+      visibleItemsNumber === 0 ? width : ITEMS_COLUMN_GAP + width;
 
     if (occupiedWidth > availableWidth) {
       break;
