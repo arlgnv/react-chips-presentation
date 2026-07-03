@@ -10,21 +10,24 @@ function useVisibleItemsNumber(
 ) {
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(0);
 
-  const updateVisibleItemsNumber = useCallback((containerWidth: number) => {
-    const measureBoxElement = measureBoxRef.current;
+  const updateVisibleItemsNumber = useCallback(
+    (containerWidth: number) => {
+      const measureBoxElement = measureBoxRef.current;
 
-    if (!measureBoxElement) {
-      return;
-    }
+      if (!measureBoxElement) {
+        return;
+      }
 
-    const newVisibleItemsNumber = calculateVisibleItemsNumber(
-      containerWidth,
-      measureBoxElement,
-      items.length,
-    );
+      const newVisibleItemsNumber = calculateVisibleItemsNumber(
+        containerWidth,
+        measureBoxElement,
+        items.length,
+      );
 
-    setVisibleItemsNumber(newVisibleItemsNumber);
-  }, []);
+      setVisibleItemsNumber(newVisibleItemsNumber);
+    },
+    [items],
+  );
 
   useLayoutEffect(() => {
     const containerElement = containerRef.current;
